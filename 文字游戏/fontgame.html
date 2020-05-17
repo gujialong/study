@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>h5文字游戏</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .box {
+        height: 200px;
+        /* background: #f9f; */
+        width: 100%;
+        overflow: hidden;
+
+    }
+
+    .box details {
+        /* 放在同一起跑线 */
+        margin-top: -200px;
+        height: 200px;
+        color: #fff;
+        background: #f9f;
+    }
+
+    .box details:first-child {
+        margin-top: 0;
+    }
+
+    .box summary {
+        float: left;
+        cursor: pointer;
+        width: 50%;
+        height: 40px;
+        /* background: rgb(10, 87, 39); */
+    }
+
+    .box>details:first-child summary {
+        background: rgb(10, 87, 39);
+    }
+
+    .box>details:nth-child(2) summary {
+        background: #0cf;
+
+    }
+
+    /* 定义详细描述在哪个位置 */
+
+    .box details>div {
+
+
+        color: black;
+        float: left;
+        width: 100%;
+        height: 200px;
+        margin-top: -40px;
+        background: #99f;
+        text-align: center;
+    }
+
+    /* 最外面的div */
+    .box summary{
+        text-align: left;
+    }
+    .box details+div {
+        text-align: center;
+        margin-top: -160px;
+        padding: 0.5em;
+    }
+
+</style>
+
+<body>
+    <div class="box">
+
+        <details>
+            <summary>森林</summary>
+            <div>
+                <details>
+                    <summary>先吃了再说</summary>
+                    <div>
+                        <p>味道很好吃，前面看起来更加阴森了</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>小心点继续前进</summary>
+                    <div>
+                        <p>恭喜你获得了一把海神三叉戟<b>（鱼叉）</b></p>
+                    </div>
+                </details>
+                <div>
+                    <p>你来到一颗果树旁边，树上是你没见过的果子，这是你的肚子咕咕咕响了</p>
+                </div>
+
+            </div>
+
+        </details>
+        <details>
+            <summary class="aaa">海岸</summary>
+            <div>
+                <details>
+                    <summary>
+                        纵身一跃，跳入水中
+                    </summary>
+                    <div>
+                        <p>在水中享受着太阳，你不经意的学会了游泳</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>
+                        在沙滩上刨了一个坑，你躺在沙子中
+                    </summary>
+
+                    <div>
+                        <p>不一会儿，你已经变成了包拯</p>
+                    </div>
+                </details>
+                <div>
+                    <p>来到沙滩上，你看见了一望无际的大海，即使是不会游泳你的都有冲动想去浅滩上玩水</p>
+                </div>
+            </div>
+        </details>
+        <div>
+            <p>你来到一条分岔路口：</p>
+            <p>左边是森林，右边是海岸</p>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
