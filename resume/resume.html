@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    html,body{
+        height: 100%;
+    }
+    h1{
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: rgb(85, 107, 171,1);
+    }
+    .resume{
+        background: url("./img/bakcground.png") no-repeat;
+        background-size: cover;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        display: -webkit-flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .portrait{
+        width: 10em;
+        height: 10em;
+        border-radius: 50%;
+        border: 12px solid #0fc;
+        text-align: center;
+        margin-top:1em;
+    }
+    .nickname{
+        font-weight: bold;
+        margin-top: 1em;
+        font-size: xxx-large;
+        font-size: -webkit-xxx-large;
+        color: white;
+        text-shadow: 1px 2px #22c3aa, 2px 4px #aee2d9;
+    }
+    .info{
+        color: white;
+        text-align: center;
+    }
+    .info p{
+        margin: 1em;
+    }
+    .info p:nth-child(2){
+        font-weight: bold;
+        font-size: xx-large;
+    }
+    .info p:last-child{
+        color: teal;
+    }
+</style>
+<body>
+    <div class="resume">
+    <h1><em>个人简历</em></h1>
+
+            <img src="./img/portrait.png" class="portrait" alt="图片未加载">
+            <div class="nickname">
+               <p> <em>小猪爱佩奇</em></p>
+            </div>    
+            <div class="info">
+                <p>人生没有彩排，每一天都是现场直播</p>
+                <p >前端工程师</p>
+                <p>1119010269@qq.com</p>
+            </div>
+    </div>
+</body>
+</html>
