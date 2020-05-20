@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布局</title>
+    <link rel="stylesheet" href="./layout.css">
+</head>
+
+<body>
+
+
+    <p>    实现一个两栏布局，左侧占30%宽度，右侧占70%宽度</p>
+    <div class='first clearfix' >
+        <div style="width: 30%;float: left; background-color: #fc9;">左边</div>
+        <div style="width: 70%;float: left; background-color: #cfc;">右边</div>
+    </div>
+
+    <p>     实现一个两栏布局，左侧固定宽度，右侧根据浏览器宽度进行自适应变化</p>
+    <div class='first clearfix' >
+        <div  style="width: 120px;float: left; background-color: #fc9;box-sizing: content-box;">左边</div>
+        <div  style="float: left; background-color: #cfc;box-sizing: content-box;width: calc(100% - 120px);;">右边</div>
+    </div>
+    <p>实现一个两栏布局，右侧固定宽度，左侧根据浏览器宽度进行自适应变化 flex;;;</p>
+    <div style="display: flex; align-items:flex-end">
+        <div style="background-color: #fc9;flex:0 0 auto">  左边 </div>
+        <div style="background-color: #cfc;width: 120px;flex: 1 1 auto;">  右边 </div>
+    </div>
+    <p>实现一个三栏布局，左侧固定宽度，右侧固定宽度，中间部分宽度随浏览器宽度变化而自适应变化（圣杯布局）</p>
+
+        <header></header>
+        <div class="container " style="padding-left: 200px;padding-right: 190px;">
+            <div style="background-color: #5f6;width: 100%;height: 50px;padding: 0 20px;">middle</div>
+            <div id="con_left" style="background-color: #6cc;
+            height: 50px;">left</div>
+            <div id="con_right" style="background-color: #cfc;width: 130px;height: 50px;margin-right: -190px;padding: 0 10px;">right</div>
+        </div>
+        <div class="clearfix"></div>
+
+
+        <p>实现一个三栏布局，左侧固定宽度，右侧固定宽度，中间部分宽度随浏览器宽度变化而自适应变化（双飞燕布局）</p>
+        <div id="header"></div>
+        <div id="double-fly-container" class="colum">
+            <div id="middle" >中间层 </div>
+        </div>
+        <div id="double-left" class="colum">left</div>
+        <div id="double-right" class="colum">right</div>
+        <div id="footer"></div>
+
+
+
+        <p>实现一个三栏布局，左侧固定宽度，中间固定宽度，右侧根据浏览器宽度变化而自适应变化</p>
+        <div id="center" class="column" >454 </div>
+        <div id="left" class="column">left</div>
+        <div id="right" class="column">right</div>
+</body>
+</html>
