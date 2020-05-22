@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动补全邮箱</title>
+    <style>
+        .select {
+            background-color: #ccc;
+        }
+
+        #email-input {
+            width: 20%;
+        }
+
+        #email-sug-wrapper {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: calc(20% + 4px);
+
+        }
+
+        li:hover {
+            cursor: pointer
+        }
+    </style>
+</head>
+
+<body onload="autofocus()">
+    <div class="wrapper">
+        <input id="email-input" type="text">
+        <ul id="email-sug-wrapper" class="email-sug"></ul>
+    </div>
+</body>
+<script>
+    // 邮箱后缀List参考
+    const postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+    let ul = document.getElementById("email-sug-wrapper");
+    let input = document.getElementById('email-input')
+    var selectIndex = 0; //选择了那个li
+    //获得input框的内容
+    function getInput() {
+        let str = input.value.trim();
+        str = HtmlEcod(str);
+        return str;
+    }
+    //生成提示框
+    function inputTips() {
+        let flag = 0; //定义是否输入到@符号为止
+        const arr = [];
+        let str = getInput();
+        //2。取出str @的前后
+        let strinfont, srtback;
+        if (str.indexOf('@') == -1) {
+            //表示没有@符号
+            strinfont = str;
+        } else {
+            strinfont = str.substring(0, str.indexOf('@'));
+            //从@开始取到最后
+            srtback = str.substring(str.indexOf('@') + 1);
+            console.log(srtback);
+
+        }
+        //去遍历post数组
+        for (let i = 0; i < postfixList.length; i++) {
+            //表示输入到@为止
+            if (postfixList[i].indexOf(srtback) == 0) {
+                arr.push(strinfont + '@' + postfixList[i])
+                flag = 1;
+            }
+        }
+        //判断flag
+        if (flag == 0) {
+            for (let i = 0; i < postfixList.length; i++) {
+                arr.push(strinfont + '@' + postfixList[i])
+            }
+        }
+        console.log(selectIndex);
+
+        return arr;
+    }
+
+    //动态创建li标签
+
+    function createLi() {
+
+        for (let i = ul.childNodes.length - 1; i >= 0; i--) {
+            //把ul下面所有子元素集合删掉
+            ul.removeChild(ul.childNodes[i])
+        }
+        let arr = inputTips();
+        for (let i = 0; i < arr.length; i++) {
+            let li = document.createElement('li');
+            li.innerHTML = arr[i];
+            ul.appendChild(li);
+        }
+        document.getElementsByTagName('li')[selectIndex].className = 'select'
+    }
+    //隐藏提示框
+    function tipsShowHide() {
+        let str = getInput();
+        if (!str) {
+            Hide();
+        } else {
+            Show();
+        }
+    }
+
+    function Hide() {
+        ul.style.visibility = 'hidden'
+    }
+
+    function Show() {
+        ul.style.visibility = "visible"
+    }
+
+    ul.addEventListener('mousemove', aaa, false);
+    // 监听键盘的事件
+    input.addEventListener('keyup', function (event) {
+        var event = event || window.event; //浏览器兼容性
+        console.log(ul.childNodes[selectIndex]);
+        //判断是否按了回车  上下键
+        if (event.keyCode != 13 && event.keyCode != 38 && event.keyCode != 40 && event.keyCode != 108) {
+            init();
+        }
+        if (event.keyCode == 38) {
+            if (selectIndex == 0) {
+                //获得Ul下面子节点的长度
+                selectIndex = ul.childNodes.length - 1;
+            } else {
+                selectIndex--;
+            }
+        }
+        if (event.keyCode == 40) {
+            if (selectIndex >= ul.childNodes.length - 1) {
+                selectIndex = 0;
+            } else {
+                selectIndex++;
+            }
+        }
+        if (event.keyCode == 27) {
+            input.select();
+        }
+        try {
+            createLi();
+            tipsShowHide();
+        } catch (error) {
+            console.log(error)
+        }
+        if (event.keyCode == 13 || event.keyCode == 108) {
+            //如果按了回车，把这个值填充到Input里
+            try {
+                input.value = ul.childNodes[selectIndex].innerHTML
+            } catch (error) {
+                console.log(error);
+
+            }
+
+            Hide()
+        }
+    })
+
+
+
+    //监听鼠标事件
+    ul.addEventListener('click', function (el) {
+        var ev = el || window.el;
+        var target = ev.target || ev.srcElement;
+        if (target.nodeName.toLowerCase() == 'li') {
+            input.value = target.innerHTML;
+            Hide();
+        }
+        input.focus();
+    })
+
+
+
+    function aaa(event1) {
+        console.log(event1)
+        var event1 = event1 || window.event1;
+        var target = event1.target || event1.srcElement;
+        var childen = this.children;
+        document.getElementsByTagName('li')[selectIndex].className = ''
+        // console.log(childen);
+        for (let i = 0; i < childen.length; i++) {
+            if (target == childen[i]) {
+                console.log(i);
+                selectIndex = i
+                document.getElementsByTagName('li')[selectIndex].className = 'select'
+                console.log(selectIndex);
+            }
+        }
+    }
+
+    //转义HTML
+    function HtmlEcod(html) {
+        //1.需要新建一个临时div
+        let temp = document.createElement('div');
+        (temp.textContent != null) ? (temp.textContent = html) : (temp.innerHTML = html);
+        let out = temp.innerHTML;
+        temp = null;
+        // console.log(out);
+        return out;
+    }
+    //初始化li下标
+    function init() {
+        selectIndex = 0;
+    }
+
+    function autofocus() {
+        input.focus();
+    }
+</script>
+
+</html>
