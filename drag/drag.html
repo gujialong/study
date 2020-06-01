@@ -1,0 +1,43 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-28 20:28:12
+ * @LastEditTime: 2020-05-28 23:52:35
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\drag\drag.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+    <canvas width="200" height="200 " id="myCanvans" style="border:1px solid #c3c3c3">
+
+    </canvas>
+</body>
+<script>
+    let canvas = document.getElementById("myCanvans");
+    //定义画笔
+    let cxt= canvas.getContext("2d");
+//     let bg_img = new Image();
+//     bg_img.src = './girl.jpg'
+    
+
+
+    let bg_img = document.createElement('img');
+    bg_img.src ='./girl.jpg';
+    document.body.appendChild(bg_img);
+    // cxt.drawImage(bg_img,200,200)
+//         bg_img.onload = function(){
+//      console.log('图片加载成功');
+//      console.log(this);
+//      cxt.drawImage(bg_img,10,10,180,180);
+//  }
+    window.onload = function(){
+        cxt.drawImage(bg_img,10,10,180,180);
+    }
+</script>
+</html>

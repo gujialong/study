@@ -1,0 +1,331 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-22 19:55:47
+ * @LastEditTime: 2020-06-01 13:31:42
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\mis\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小商品市场</title>
+    <style>
+        #table-wrapper table,
+        th,
+        td {
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        th {
+            vertical-align: middle;
+            padding: 5px;
+            background-color: #3f3f3f;
+            color: #DEF;
+        }
+
+        table td {
+            /* vertical-align: center; */
+            padding: 6px 15px 6px 6px;
+            text-align: center;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #F5F5F5;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body onload="load()">
+    <form action="/sub" id="mis">
+        <div id="area">
+            <label for="">请选择地区</label>    
+             <input type="checkbox" name="" class="selectAreaAll" onchange="selectAreaAll(this)"/>全选
+            <div name="select-area" id="select-area">
+           
+                <input type="checkbox" value="华东" onchange="aaa(this)" name='area_option' checked='checked'>华东
+                <input type="checkbox" value="华南" onchange="aaa(this)"  name='area_option'>华南
+                <input type="checkbox" value="华北" onchange="aaa(this)"  name='area_option'>华北
+            </div>
+        </div>
+        <label for="">选择产品</label>
+        <input type="checkbox" class="selectProductAll" onchange="selectProductAll(this)">全选
+        <div id="shop-type">
+            <input type="checkbox" onchange="productChange()"    value="手机" name='mis_type' checked='checked'>手机
+            <input type="checkbox" onchange="productChange()"  value="笔记本" name='mis_type'>笔记本
+            <input type="checkbox" onchange="productChange()"  value="智能音箱" name='mis_type'>智能音箱
+        </div>
+        <div id="table-wrapper">
+
+        </div>
+        <input type="submit" value="提交">
+    </form>
+</body>
+<script>
+    let form = document.getElementById('mis');
+    let area = document.getElementById('select-area');
+    let tab_box = document.getElementById('table-wrapper');
+    let shop_type = document.getElementById('shop-type');
+    let area_option = document.querySelectorAll('input[name=area_option]');
+    let product_option = document.querySelectorAll('input[name=mis_type]');
+    let select_area_all= document.getElementsByClassName('selectAreaAll');
+    let select_product_all= document.getElementsByClassName('selectProductAll');
+    let num=1;
+    function aaa(){
+        if(event.target.checked == true){       
+            num ++;
+            console.log(event.target.value);      
+        }else{
+            console.log(222);
+            num --;           
+        }
+        if(num == area_option.length){
+           select_area_all.item(0).checked="checked";            
+        }else{
+            select_area_all.item(0).checked="";           
+        }       
+    }
+    //地区全选
+
+
+    function selectAreaAll(){
+        let selectAreaAll=event.target.checked;
+        //单击全选改变下面的三个checkbox
+        if(selectAreaAll){
+           for(let i=0;i<area_option.length;i++){
+                area_option[i].checked= "checked"
+                num = area_option.length;
+                init();
+           }
+        }else{
+            for(let i=0;i<area_option.length;i++){
+                area_option[i].checked= "";
+                num = 0;
+           }
+        }
+    }
+    function productChange(){
+        if(event.target.checked == true){       
+            num ++;
+            console.log(event.target.value);      
+        }else{
+            num --;           
+        }
+        if(num == product_option.length){
+            console.log(product_option.length);
+            console.log( select_product_all.item(0).checked);
+            
+            select_product_all.item(0).checked="checked";            
+        }else{
+            select_product_all.item(0).checked="";           
+        }    
+    }
+    
+    function selectProductAll(){
+        let selectProductAll=event.target.checked;
+        console.log( selectProductAll);
+        
+        //单击全选改变下面的三个checkbox
+        if(selectProductAll){
+           for(let i=0;i<product_option.length;i++){
+            product_option[i].checked= "checked"
+                num = product_option.length;
+                init();
+
+           }
+        }else{
+            for(let i=0;i<product_option.length;i++){
+                product_option[i].checked= "";
+                num = 0;
+           }
+        }
+    }
+    function load() {
+        init()
+    }
+    //渲染表格
+    let table_title_list = ['商品', '地区', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+    let sourceData = [{
+        product: "手机",
+        region: "华东",
+        sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    }, {
+        product: "手机",
+        region: "华北",
+        sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+    }, {
+        product: "手机",
+        region: "华南",
+        sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+    }, {
+        product: "笔记本",
+        region: "华东",
+        sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华北",
+        sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华南",
+        sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+    }, {
+        product: "智能音箱",
+        region: "华东",
+        sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+    }, {
+        product: "智能音箱",
+        region: "华北",
+        sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+    }, {
+        product: "智能音箱",
+        region: "华南",
+        sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+    }, {
+        product: "手机",
+        region: "华东",
+        sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    }, {
+        product: "手机",
+        region: "华北",
+        sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+    }, {
+        product: "手机",
+        region: "华南",
+        sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+    }, {
+        product: "笔记本",
+        region: "华东",
+        sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华北",
+        sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华南",
+        sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+    }, {
+        product: "智能音箱",
+        region: "华东",
+        sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+    }, {
+        product: "智能音箱",
+        region: "华北",
+        sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+    }, {
+        product: "智能音箱",
+        region: "华南",
+        sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+    }]
+
+    //取得selct的值
+    area.onchange = function (event) {
+        init();
+    }
+    shop_type.onchange = function (event) {
+        init();
+
+    }
+    //获得数据
+    
+    //填充数据
+    function fillData() {
+        let isarea=true;
+        let value1 = getSelectValue(true),
+            value2 = getSelectValue(false);
+        console.log(value1);
+        console.log(value2);       
+        let data = sourceData.filter((data, index, arr) => {   
+           let areaData=  value1.filter((item)=>{
+               return  data.region == item 
+           })   
+           let productData=  value2.filter((item)=>{
+               return  data.product == item 
+           })   
+           if(areaData.length>0 && productData.length>0){
+               console.log(areaData);
+               console.log(productData);
+               
+               return  productData 
+           }
+       
+        })
+        console.log(data);
+        
+        return data;
+
+    }
+
+    //获得选择的值
+    function getSelectValue(isarea) {
+        //如果是地区
+        let data=new Array();
+        if(isarea){
+            for(let i=0;i<area_option.length;i++){
+                console.log(area_option[i].checked);      
+                if(area_option[i].checked){
+                    data.push(area_option[i].value)
+                    console.log(data );
+
+                }
+            }     
+        }else{
+            for(let i=0;i<product_option.length;i++){
+                console.log(product_option[i].checked);      
+                if(product_option[i].checked){
+                    data.push(product_option[i].value)
+                    console.log(data );
+
+                }
+            }  
+        }
+        return data;
+    }
+
+    //表格初始化，渲染表头
+    function init() {
+        tab_box.removeChild(tab_box.childNodes[0]);
+        let table = document.createElement('table');
+        let header = table.createTHead();
+        let row = header.insertRow(0);
+        for (let i in table_title_list) {
+            let th = document.createElement('th');
+            // let th = row.insertR(row.cells.length);
+            th.innerHTML = table_title_list[i];
+            row.append(th);
+        }
+
+        let arr = fillData();
+        let tbody = table.createTBody();
+        let newRow = tbody.insertRow(0);
+
+        for (let i in arr) {
+            let tr = table.insertRow(table.rows.length);
+            let td0 = tr.insertCell(0);
+            td0.innerHTML = arr[i].product;
+            let td1 = tr.insertCell(1);
+            td1.innerHTML = arr[i].region;
+            for (let j = 0; j < 12; j++) {
+                let tdn = tr.insertCell(j + 2);
+                tdn.innerHTML = arr[i].sale[j];
+            }
+        }
+        tab_box.appendChild(table);
+    }
+</script>
+
+</html>

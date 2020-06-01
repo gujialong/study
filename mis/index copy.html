@@ -1,0 +1,241 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-22 19:55:47
+ * @LastEditTime: 2020-05-30 15:07:16
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\mis\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小商品市场</title>
+    <style>
+        #table-wrapper table,
+        th,
+        td {
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        th {
+            vertical-align: middle;
+            padding: 5px;
+            background-color: #3f3f3f;
+            color: #DEF;
+        }
+
+        table td {
+            /* vertical-align: center; */
+            padding: 6px 15px 6px 6px;
+            text-align: center;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #F5F5F5;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body onload="load()">
+    <form action="/sub" id="mis">
+        <div id="area">
+            <label for="">请选择地区</label>
+            <select name="select-area" id="select-area">
+                <option value="华东">华东</option>
+                <option value="华南">华南</option>
+                <option value="华北">华北</option>
+            </select>
+        </div>
+        <div id="shop-type">
+            <input type="radio" value="手机" name='mis_type' checked='checked'>手机
+            <input type="radio" value="笔记本" name='mis_type'>笔记本
+            <input type="radio" value="智能音箱" name='mis_type'>智能音箱
+        </div>
+        <div id="table-wrapper">
+
+        </div>
+        <input type="submit" value="提交">
+    </form>
+</body>
+<script>
+    let form = document.getElementById('mis');
+    let area = document.getElementById('select-area');
+    let tab_box = document.getElementById('table-wrapper');
+    let shop_type = document.getElementById('shop-type');
+    let isarea = true;
+
+    function load() {
+        init()
+    }
+    //渲染表格
+    let table_title_list = ['商品', '地区', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+    let sourceData = [{
+        product: "手机",
+        region: "华东",
+        sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    }, {
+        product: "手机",
+        region: "华北",
+        sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+    }, {
+        product: "手机",
+        region: "华南",
+        sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+    }, {
+        product: "笔记本",
+        region: "华东",
+        sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华北",
+        sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华南",
+        sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+    }, {
+        product: "智能音箱",
+        region: "华东",
+        sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+    }, {
+        product: "智能音箱",
+        region: "华北",
+        sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+    }, {
+        product: "智能音箱",
+        region: "华南",
+        sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+    }, {
+        product: "手机",
+        region: "华东",
+        sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    }, {
+        product: "手机",
+        region: "华北",
+        sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+    }, {
+        product: "手机",
+        region: "华南",
+        sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+    }, {
+        product: "笔记本",
+        region: "华东",
+        sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华北",
+        sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+    }, {
+        product: "笔记本",
+        region: "华南",
+        sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+    }, {
+        product: "智能音箱",
+        region: "华东",
+        sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+    }, {
+        product: "智能音箱",
+        region: "华北",
+        sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+    }, {
+        product: "智能音箱",
+        region: "华南",
+        sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+    }]
+
+    let defaultRadio = "";
+    //获得初始radio值
+    let radio = document.getElementsByName('mis_type');
+
+    function radioValue() {
+        for (let i = 0; i < radio.length; i++) {
+            if (radio[i].checked) {
+                return radio[i].value;
+            }
+        }
+    }
+
+
+    //取得selct的值
+    area.onchange = function (event) {
+        isarea = true;
+        init();
+        let selectedValue = getSelectValue(event);
+    }
+    shop_type.onchange = function (event) {
+        init();
+        let selectedValue = getSelectValue(event);
+        isarea = false;
+
+    }
+    //填充数据
+    function fillData() {
+        let value1 = area.value,
+            value2 = radioValue();
+        console.log(value1);
+        console.log(value2);
+
+        let data = sourceData.filter((data, index, arr) => {
+            return data.region == value1 && data.product == value2;
+        })
+        return data;
+
+    }
+
+    //获得选择的值
+    function getSelectValue(event) {
+        let data = event.target.value;
+        return data;
+    }
+
+    //表格初始化，渲染表头
+    function init() {
+        tab_box.removeChild(tab_box.childNodes[0]);
+        let table = document.createElement('table');
+        let header = table.createTHead();
+        let row = header.insertRow(0);
+        console.log(row);
+
+        for (let i in table_title_list) {
+            let th = document.createElement('th');
+            // let th = row.insertR(row.cells.length);
+            th.innerHTML = table_title_list[i];
+            row.append(th);
+        }
+
+        let arr = fillData();
+        let tbody = table.createTBody();
+        let newRow = tbody.insertRow(0);
+
+        for (let i in arr) {
+            console.log(arr);
+            let tr = table.insertRow(table.rows.length);
+            let td0 = tr.insertCell(0);
+            td0.innerHTML = arr[i].product;
+            let td1 = tr.insertCell(1);
+            td1.innerHTML = arr[i].region;
+            for (let j = 0; j < 12; j++) {
+                let tdn = tr.insertCell(j + 2);
+                tdn.innerHTML = arr[i].sale[j];
+            }
+
+
+        }
+        tab_box.appendChild(table);
+    }
+</script>
+
+</html>
