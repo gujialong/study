@@ -1,0 +1,39 @@
+#table-wrapper table,
+th,
+td {
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+table {
+    width: 100%;
+    margin-top: 15px;
+}
+
+th {
+    vertical-align: middle;
+    padding: 5px;
+    background-color: #3f3f3f;
+    color: #DEF;
+}
+
+table td {
+    /* vertical-align: center; */
+    padding: 6px 15px 6px 6px;
+    text-align: center;
+}
+
+table tr:nth-child(odd) {
+    background-color: #F5F5F5;
+}
+
+table tr:nth-child(even) {
+    background-color: #fff;
+}
+
+.broken {
+    margin-top: 5em;
+}
+#bar-wrapper{
+    margin-top: 5em;
+}

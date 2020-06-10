@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-22 19:55:47
- * @LastEditTime: 2020-06-10 17:26:31
+ * @LastEditTime: 2020-06-10 23:23:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vsworkspace\mis\index.html
@@ -13,46 +13,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小商品市场</title>
+    <link rel="stylesheet" href="./index.css">
     <script src="./line.js"></script>
     <script src="./bar.js"></script>
-    <style>
-        #table-wrapper table,
-        th,
-        td {
-            border: 1px solid #000;
-            border-collapse: collapse;
-        }
+    <script src="./json.js"></script>
 
-        table {
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        th {
-            vertical-align: middle;
-            padding: 5px;
-            background-color: #3f3f3f;
-            color: #DEF;
-        }
-
-        table td {
-            /* vertical-align: center; */
-            padding: 6px 15px 6px 6px;
-            text-align: center;
-        }
-
-        table tr:nth-child(odd) {
-            background-color: #F5F5F5;
-        }
-
-        table tr:nth-child(even) {
-            background-color: #fff;
-        }
-
-        .broken {
-            margin-top: 5em;
-        }
-    </style>
 </head>
 
 <body onload="load()">
@@ -75,22 +40,17 @@
             <input type="checkbox" onchange="productChange()" value="智能音箱" name='mis_type'>智能音箱
         </div>
         <div id="table-wrapper">
-
         </div>
         <input type="submit" value="提交">
-        <div style="text-align:center;font-weight: bold;">
-            <label>这是华东地区手机的销量</label>
+    </form>
+    <div class="chart" style="display: flex;">
+
+        <div id="bar-wrapper" style="flex: 1;">
         </div>
-        <div id="bar-wrapper">
-        </div>
-        <div style="text-align:center;font-weight: bold;">
-            <label>这是华东地区手机的销量</label>
-        </div>
-        <div class="broken">
+        <div class="broken" style="flex: 1; ">
             <canvas id="canvas" width="900" height="500"></canvas>
         </div>
-   
-    </form>
+    </div>
 </body>
 <script>
     let form = document.getElementById('mis');
@@ -105,6 +65,8 @@
     let broken = document.getElementsByClassName("broken");
     let bar = document.getElementById("bar-wrapper");
 
+
+
     let num = 1;
 
     function aaa() {
@@ -112,7 +74,6 @@
             num++;
             console.log(event.target.value);
         } else {
-            console.log(222);
             num--;
         }
         if (num == area_option.length) {
@@ -185,81 +146,7 @@
     }
     //渲染表格
     let table_title_list = ['商品', '地区', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-    let sourceData = [{
-        product: "手机",
-        region: "华东",
-        sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
-    }, {
-        product: "手机",
-        region: "华北",
-        sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
-    }, {
-        product: "手机",
-        region: "华南",
-        sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
-    }, {
-        product: "笔记本",
-        region: "华东",
-        sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
-    }, {
-        product: "笔记本",
-        region: "华北",
-        sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
-    }, {
-        product: "笔记本",
-        region: "华南",
-        sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
-    }, {
-        product: "智能音箱",
-        region: "华东",
-        sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
-    }, {
-        product: "智能音箱",
-        region: "华北",
-        sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
-    }, {
-        product: "智能音箱",
-        region: "华南",
-        sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
-    }, 
-    // {
-    //     product: "手机",
-    //     region: "华东",
-    //     sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
-    // },
-     {
-        product: "手机",
-        region: "华北",
-        sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
-    }, {
-        product: "手机",
-        region: "华南",
-        sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
-    }, {
-        product: "笔记本",
-        region: "华东",
-        sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
-    }, {
-        product: "笔记本",
-        region: "华北",
-        sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
-    }, {
-        product: "笔记本",
-        region: "华南",
-        sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
-    }, {
-        product: "智能音箱",
-        region: "华东",
-        sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
-    }, {
-        product: "智能音箱",
-        region: "华北",
-        sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
-    }, {
-        product: "智能音箱",
-        region: "华南",
-        sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
-    }]
+
 
     //取得selct的值
     area.onchange = function (event) {
@@ -330,19 +217,20 @@
         tab_box.removeChild(tab_box.childNodes[0]);
         let table = document.createElement('table');
         let header = table.createTHead();
-        let row = header.insertRow(0);
+        // let row = header.insertRow(0);
         for (let i in table_title_list) {
             let th = document.createElement('th');
             // let th = row.insertR(row.cells.length);
             th.innerHTML = table_title_list[i];
-            row.append(th);
+            // row.append(th);
+            header.append(th)
         }
 
         let arr = fillData();
         let tbody = table.createTBody();
         let newRow = tbody.insertRow(0);
 
-        for (let i in arr) {
+        for (let i = 0; i < arr.length; i++) {
             let tr = table.insertRow(table.rows.length);
             let td0 = tr.insertCell(0);
             td0.innerHTML = arr[i].product;
@@ -352,8 +240,32 @@
                 let tdn = tr.insertCell(j + 2);
                 tdn.innerHTML = arr[i].sale[j];
             }
+
         }
         tab_box.appendChild(table);
+
+        let trs =[... document.getElementsByTagName("tr")];
+        console.log(trs.length);
+        console.log(trs);
+        let trData = [{product : "",region:"",sale:[]}];
+        for (let i = 1; i < trs.length; i++) {
+            console.log(trs.length);
+            trs[i].onmouseover = function () {
+                let tds =this.getElementsByTagName("td");
+                trData[0].product=tds[0].innerHTML;
+                trData[0].region=tds[1].innerHTML;
+                for(let j=2;j<tds.length;j++){
+                    trData[0].sale[j-2] = tds[j].innerHTML; 
+                }
+                console.log(trData);
+                
+                broken.innerHTML = getBroken(trData);
+                bar.innerHTML = getBar(trData);
+
+
+            }
+        }
+
     }
 
 
@@ -369,10 +281,18 @@
         })
         return new_array;
     }
-    console.log(data_broken());
+
+
+
 
     broken.innerHTML = getBroken(data_broken());
-    bar.innerHTML =  getBar(data_broken());
+    bar.innerHTML = getBar(data_broken());
+
+
+
+
+
+ 
 </script>
 
 </html>

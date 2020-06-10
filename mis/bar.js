@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-06-06 13:32:37
- * @LastEditTime: 2020-06-10 17:22:34
+ * @LastEditTime: 2020-06-10 20:53:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edget
  * @FilePath: \vsworkspace\mis\bar.js
@@ -25,8 +25,8 @@ function getBar(data) {
         h = 500,
         axisX = 850,
         axisY = 450,
-        startX = 25,
-        startY = 320;
+        startX = 53,
+        startY = 450;
     //定义柱子的颜色，轴的颜色
     let barColor = "#0DAFF4",
         axisColor = "rgb(0,99,99)";
@@ -51,7 +51,7 @@ function getBar(data) {
             let dataValue =`<text x=${rectX} y=${rectY -10}>${data[i].sale[j]}</text>`
             let monthValue =`<text x=${rectX} y=${startY + 20}>${parseInt(j)+1 }月</text>`
             
-            console.log(data[i].sale[j]);
+            // console.log(data[i].sale[j]);
             //进行柱状画图
             let bar = `<rect x=${rectX} y=${rectY} width=${barWidth} height=${data[i].sale[j]} style=fill:rgb(0,0,255);stroke:rgb(0,99,99);stroke-width:1></rect>`
             svgT = svgT + bar +dataValue +monthValue;

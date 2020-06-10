@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-06-06 13:04:00
- * @LastEditTime: 2020-06-10 14:21:05
+ * @LastEditTime: 2020-06-11 00:04:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vsworkspace\mis\line.js
@@ -10,6 +10,7 @@ function getBroken(data) {
     //定义一个折线函数
     //暂时只显示华东地区的
     //1.定义好折线图绘制区域，轴的高度，宽度
+    console.log(data[0].region);
 
     let axisWidth = 850;
     let axisHeight = 450;
@@ -18,12 +19,24 @@ function getBroken(data) {
     //2.定义好每一个数据点的直径，颜色，线的颜色，宽度
     let dataColor = "#ff0000",
         connectLineColor = "#00faff";
-    connectLineWidth = 5;
+
+    if (data[0].region == '华东') {
+        connectLineColor = "#00faff";
+    } else if (data[0].region == '华南') {
+        connectLineColor = "#fa00ff";
+    } else {
+        connectLineColor = "#00ff00";
+    }
+
+    let connectLineWidth = 5;
     //定义每两个数据点之间的间隔距离
     let dataInterval = 60;
 
-    //创建X轴Y轴
+   
     let ctx = document.getElementById("canvas").getContext("2d");
+
+     //创建X轴Y轴
+     ctx.strokeStyle ="black";
     ctx.moveTo(startX, startY);
     ctx.lineTo(axisWidth, startY);
     ctx.stroke();
@@ -57,13 +70,13 @@ function getBroken(data) {
         ctx.moveTo(dataX, dataY);
         ctx.lineTo(nextX, nextY);
         ctx.stroke();
+
         //创建文本
         ctx.fillStyle = "black";
         //创建0点
-
         ctx.font = "20px Arial "
         ctx.fillText(0, startX, startY + 30);
-        ctx.fillText(i + 1, dataX, startY + 30);
+        ctx.fillText(i + 1 + '月', dataX, startY + 30);
         //创建Y上的文字
         //23
         let num = 0;
