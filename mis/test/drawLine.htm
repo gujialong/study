@@ -1,0 +1,179 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-06 19:53:30
+ * @LastEditTime: 2020-06-09 14:23:49
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\mis\test\drawLine.htm
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画布联系</title>
+    <style>
+        #canvas {
+            border: 1px solid red;
+        }
+        #canvas1 {
+            border: 1px solid red;
+            background: turquoise ;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="400" height="400" id="canvas"></canvas>
+    <canvas width="400" height="400" id="canvas1"></canvas>
+</body>
+<script>
+    let canvas = document.getElementById("canvas");
+    let cxt1 = document.getElementById("canvas1").getContext("2d");
+    let cxt = canvas.getContext("2d");
+    //画线
+    cxt.fillStyle = "blue";
+    cxt.moveTo(10, 10);
+    cxt.lineTo(100, 10);
+    cxt.stroke();
+    //画矩形
+    cxt.fillStyle = 'red'
+    cxt.fillRect(10, 10, 50, 50);
+    //画圆
+    cxt.beginPath();
+    cxt.arc(25, 25, 10, 0, Math.PI * 2, true)
+    cxt.closePath();
+    cxt.stroke();
+    cxt.fillStyle = "black"
+    cxt.fillText("this is  circle", 20, 20)
+    //画时钟
+    drawBackground();
+    function drawBackground() {
+        let now = new Date();
+
+        cxt.save();
+        cxt.clearRect(0, 0, 400, 400);
+        let width = cxt.canvas.width / 2;
+        let height = cxt.canvas.height / 2;
+        let r = width / 2;         
+       
+        cxt.fillStyle = "blue";
+        //定义偏移点的位置
+        cxt.translate(200, 200);
+        // cxt.rotate(- Math.PI / 2)
+        cxt.font = "12px Arial";
+        cxt.textAligin = 'center';
+        cxt.textBaseline = 'middle'
+        
+
+        //画背景
+        cxt.save();
+        cxt.beginPath();
+        cxt.arc(0,0,r - cxt.lineWidth  ,0,2*Math.PI,true);
+        cxt.closePath();
+        cxt.stroke();
+        cxt.restore();
+     //分刻度
+        cxt.save();
+        cxt.lineWidth = 2;
+        for (let i = 1; i < 13; i++) {
+            
+            cxt.beginPath();
+            cxt.rotate(Math.PI / 6)
+            cxt.moveTo(r -20, 0);
+            cxt.lineTo(r, 0);
+            cxt.stroke();   
+        }
+        cxt.restore();
+        //秒刻度
+        cxt.save();
+        for(let i = 0;i<60;i++){
+            if(i % 5 !=0){
+                cxt.beginPath();
+                cxt.moveTo(r - 10, 0);
+                cxt.lineTo(r, 0);
+                cxt.stroke();
+            }
+            cxt.rotate(Math.PI / 30);
+        }
+        cxt.restore();
+        //画数字
+        cxt.save();
+    
+        for(let i = 1;i < 13;i++){
+            let rad = 2 * Math.PI / 12 * (i-3);　
+            let clockRadius = 100;　　　　　　　　　　
+　　　　     let x = Math.cos(rad) * clockRadius * 0.8; 
+　　　  　   let y = Math.sin(rad) * clockRadius * 0.8;
+            cxt.fillText(i,x - 5,y)
+        }
+        cxt.restore();
+        //画时针、分针、秒针
+
+        let sec = now.getSeconds();
+        let min = now.getMinutes();
+        let hr = now.getHours();
+        hr = hr > 12 ? hr - 12 : hr;    
+        //1.画时针
+        cxt.save();
+        cxt.rotate( Math.PI /6 * hr )
+        cxt.beginPath();
+        cxt.moveTo(0,20);
+        cxt.lineWidth = 6;
+        cxt.lineCap="round"
+        cxt.lineTo(0,-(r - 2*r / 3))
+        cxt.stroke();
+        cxt.restore();
+        //2/分针
+        cxt.save();
+        cxt.rotate(Math.PI / 30 *min);
+        cxt.lineWidth=4;
+        cxt.lineCap="round"
+        cxt.moveTo(0,20);
+        cxt.lineTo(0,- 2*r/3);
+        cxt.stroke();
+        cxt.restore();
+        //3画秒针
+        cxt.save();
+        cxt.rotate(sec * Math.PI / 30);
+        cxt.strokeStyle = "#D40000";
+        cxt.fillStyle = "#D40000";
+        cxt.lineCap="round"
+        cxt.lineWidth = 3;
+        cxt.beginPath();
+        cxt.moveTo(0, 20);
+        cxt.lineTo(0, -90);
+        cxt.stroke();
+        cxt.restore();
+        //4.画中心圆
+        cxt.save();
+        cxt.fillStyle="white";
+        cxt.beginPath();
+        cxt.arc(0,0,2,0,2*Math.PI,true);
+        cxt.closePath();
+        cxt.fill();
+        cxt.restore();
+        cxt.restore();
+        window.requestAnimationFrame(drawBackground);
+    }
+    window.requestAnimationFrame(drawBackground);
+
+
+
+    //第二个画布   画一朵云
+    cxt1.fillStyle="white"
+    cxt1.beginPath();
+    cxt1.arc(50,100,25,0,Math.PI,true);
+    cxt1.closePath();
+    cxt1.fill();
+    cxt1.beginPath();
+    cxt1.arc(75,75,25,0,2*Math.PI,true);
+    cxt1.closePath();
+    cxt1.fill();
+    cxt1.beginPath();
+    cxt1.arc(100,100,25,0,Math.PI,true);
+    cxt1.closePath();
+    cxt1.fill();
+</script>
+</htmxt

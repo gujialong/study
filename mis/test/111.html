@@ -1,0 +1,68 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-08 22:27:10
+ * @LastEditTime: 2020-06-09 14:35:10
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\mis\test\111.html
+--> 
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>flower</title>
+	</head>
+	<body>
+		<!--创建一个画布-->
+		<canvas width="600px" height="600px"></canvas>
+		
+		<script>
+//			找到 <canvas> 元素:
+			var mycanvas = document.querySelector('canvas');
+//			创建 context 对象：
+			var ctx = mycanvas.getContext('2d');
+			
+			
+			
+			//4个花瓣的圆心:(100,50),(200,50),(100,150),(200,150)
+			ctx.beginPath();
+			ctx.arc(100,50,50,0,2*Math.PI);
+			ctx.fillStyle = 'red'//填充样式
+			ctx.fill();
+			
+			ctx.beginPath();
+			ctx.arc(200,50,50,0,2*Math.PI);
+			ctx.fillStyle = 'red'
+			ctx.fill();
+			
+			ctx.beginPath();
+			ctx.arc(100,150,50,0,2*Math.PI);
+			ctx.fillStyle = 'red'
+			ctx.fill();
+			
+			ctx.beginPath();
+			ctx.arc(200,150,50,0,2*Math.PI);
+			ctx.fillStyle = 'red'
+			ctx.fill();
+//			ctx.closePath();
+			
+			//绘制花蕊圆心（150,100）
+			ctx.beginPath();
+			ctx.arc(150,100,50,2*Math.PI,0);
+			ctx.fillStyle = 'yellow';`在这里插入代码片`
+			ctx.fill();
+			//一定要先画花瓣再画花蕊，不然花瓣会覆盖花蕊
+			
+			//花径,圆弧，圆心（250,100）
+			ctx.beginPath();
+			ctx.moveTo(50,400);
+			ctx.quadraticCurveTo(170,350,150,150);//贝塞尔曲线
+			ctx.stroke();
+			
+			
+		</script>
+	</body>
+</html>
+————————————————
+版权声明：本文为CSDN博主「棉呀那么个冻」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_45623859/java/article/details/103405857

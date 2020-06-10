@@ -1,0 +1,44 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-02 22:17:36
+ * @LastEditTime: 2020-06-03 10:26:42
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\exam\this.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 1000px;height: 400px;">
+        <img src="./../girl.jpg" alt="">
+    </div>
+</body>
+<script>
+    let name='小南瓜',age=12;
+    let obj={
+        name:'校长',
+        age:this.age,
+        myFun:function(){
+            console.log(this.name +"    "+ "年龄"+ this.age);
+        }
+    }
+    let db={
+        name:'张安',
+        age:12
+    }
+    obj.myFun.call(db)
+    
+        
+</script>
+</html>

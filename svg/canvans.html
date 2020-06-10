@@ -1,0 +1,43 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-02 12:43:40
+ * @LastEditTime: 2020-06-02 13:45:46
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\svg\canvans.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="draw_canvas" width="200" height="200" style="border:1px solid black">
+
+    </canvas>
+    
+</body>
+<script>
+    let c=document.getElementById("draw_canvas");
+    let cxt= c.getContext("2d");
+    //draw_line
+    // cxt.moveTo(0,0)
+    // cxt.lineTo(100,100);
+    // cxt.stroke();
+    //draw_rect
+    // cxt.fillStyle="#fff000";
+    // cxt.fillstroke="black"
+    // cxt.fillRect(0,0,150,300)
+    //draw_circle
+    cxt.fillStyle="#ff0000";
+    cxt.beginPath();
+    cxt.arc(50,50,25,0,Math.PI*2,true);
+    cxt.closePath();
+    cxt.fill();
+    cxt.fillStyle='black'
+    cxt.font="30px 黑体"
+    cxt.fillText("生日快乐",0,50,1500)
+</script>
+</html>

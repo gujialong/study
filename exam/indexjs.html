@@ -1,0 +1,102 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-02 16:00:27
+ * @LastEditTime: 2020-06-09 19:51:21
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\exam\indexjs.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    console.log(11);
+    
+    let arr = [
+        {name:"aa",num:1},
+        {name:"aa",num:1},
+        {name:"bb",num:2},
+        {name:"cc",num:1},
+    ];
+
+    console.log(arr);
+    //1
+//     function unique(arr) {
+//         let newArray= [];
+        
+//         for (let i in arr) {       
+//             if(  newArray.indexOf(arr[i]) == -1 ){
+//                 newArray.push(arr[i]);
+              
+//             }
+//         }
+//         return newArray
+//     }
+//    let a= unique(arr);
+//    console.log(a);
+   //2
+//    function unique2(array){
+//         let n = [array[0]];
+//         console.log(n);
+//         for(let i=1;i<array.length;i++){           
+//             if(array.indexOf(array[i]) == i){
+//                 console.log(i);
+//                 n.push(array[i])
+//             }
+//         }
+//         return n
+//    }
+//    console.log(unique2(arr));
+
+//3
+
+arr=[...arr];
+console.log(arr);
+
+function de(array){
+    return Array.from(new Set(array))
+}
+console.log(de(arr));
+
+let obj={};
+
+
+arr=arr.reduce((cur,next,arr)=>{
+    console.log(cur);
+    console.log(next);
+    console.log(obj[next.name + next.num] );
+//    if(obj[next.name+next.num]){
+//     obj[next.name + next.num]=""
+//    }else{
+//     obj[next.name+next.num] = true;
+//     cur.push(next)
+//    }
+    obj[next.name + next.num] ? "" : obj[next.name+next.num] = true  && cur.push(next)
+
+    return cur;     
+},[]);
+console.log(arr);
+
+console.log(obj);
+// let person= [{ certType: '2015-10-12', certCode:1}, { certType: '2015-10-12', certCode:1}, { certType: '2015-10-13', certCode :1 }]
+// console.log(person);
+
+//             let obj = {};
+//             person = person.reduce((cur,next) => {
+//                 return cur;
+//             },[]) 
+//           console.log(person)//这是去掉重复后的数据
+
+
+</script>
+
+</html>
