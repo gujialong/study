@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-22 19:55:47
- * @LastEditTime: 2020-06-10 23:23:07
+ * @LastEditTime: 2020-06-12 17:58:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vsworkspace\mis\index.html
@@ -14,10 +14,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小商品市场</title>
     <link rel="stylesheet" href="./index.css">
-    <script src="./line.js"></script>
-    <script src="./bar.js"></script>
-    <script src="./json.js"></script>
-
+    <script src="./js/line.js"></script>
+    <script src="./js/bar.js"></script>
+    <script src="./js/json.js"></script>
+    <script src="./js/localStorage.js"></script>
 </head>
 
 <body onload="load()">
@@ -27,9 +27,9 @@
             <input type="checkbox" name="" class="selectAreaAll" onchange="selectAreaAll(this)" />全选
             <div name="select-area" id="select-area">
 
-                <input type="checkbox" value="华东" onchange="aaa(this)" name='area_option' checked='checked'>华东
-                <input type="checkbox" value="华南" onchange="aaa(this)" name='area_option'>华南
-                <input type="checkbox" value="华北" onchange="aaa(this)" name='area_option'>华北
+                <input type="checkbox" value="华东" onchange="aaa()" name='area_option' checked='checked'>华东
+                <input type="checkbox" value="华南" onchange="aaa()" name='area_option'>华南
+                <input type="checkbox" value="华北" onchange="aaa()" name='area_option'>华北
             </div>
         </div>
         <label for="">选择产品</label>
@@ -41,7 +41,7 @@
         </div>
         <div id="table-wrapper">
         </div>
-        <input type="submit" value="提交">
+        <!-- <input type="submit" value="提交"> -->
     </form>
     <div class="chart" style="display: flex;">
 
@@ -52,247 +52,6 @@
         </div>
     </div>
 </body>
-<script>
-    let form = document.getElementById('mis');
-    let area = document.getElementById('select-area');
-    let tab_box = document.getElementById('table-wrapper');
-    let shop_type = document.getElementById('shop-type');
-    let area_option = document.querySelectorAll('input[name=area_option]');
-    let product_option = document.querySelectorAll('input[name=mis_type]');
-    let select_area_all = document.getElementsByClassName('selectAreaAll');
-    let select_product_all = document.getElementsByClassName('selectProductAll');
-    //显示折线图
-    let broken = document.getElementsByClassName("broken");
-    let bar = document.getElementById("bar-wrapper");
-
-
-
-    let num = 1;
-
-    function aaa() {
-        if (event.target.checked == true) {
-            num++;
-            console.log(event.target.value);
-        } else {
-            num--;
-        }
-        if (num == area_option.length) {
-            select_area_all.item(0).checked = "checked";
-        } else {
-            select_area_all.item(0).checked = "";
-        }
-    }
-    //地区全选
-
-
-    function selectAreaAll() {
-        let selectAreaAll = event.target.checked;
-        //单击全选改变下面的三个checkbox
-        if (selectAreaAll) {
-            for (let i = 0; i < area_option.length; i++) {
-                area_option[i].checked = "checked"
-                num = area_option.length;
-                init();
-            }
-        } else {
-            for (let i = 0; i < area_option.length; i++) {
-                area_option[i].checked = "";
-                num = 0;
-                init();
-            }
-        }
-    }
-
-    function productChange() {
-        if (event.target.checked == true) {
-            num++;
-            console.log(event.target.value);
-        } else {
-            num--;
-        }
-        if (num == product_option.length) {
-            console.log(product_option.length);
-            console.log(select_product_all.item(0).checked);
-
-            select_product_all.item(0).checked = "checked";
-        } else {
-            select_product_all.item(0).checked = "";
-        }
-    }
-
-    function selectProductAll() {
-        let selectProductAll = event.target.checked;
-        console.log(selectProductAll);
-
-        //单击全选改变下面的三个checkbox
-        if (selectProductAll) {
-            for (let i = 0; i < product_option.length; i++) {
-                product_option[i].checked = "checked"
-                num = product_option.length;
-                init();
-
-            }
-        } else {
-            for (let i = 0; i < product_option.length; i++) {
-                product_option[i].checked = "";
-                num = 0;
-                init();
-            }
-        }
-    }
-
-    function load() {
-        init()
-    }
-    //渲染表格
-    let table_title_list = ['商品', '地区', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-
-
-    //取得selct的值
-    area.onchange = function (event) {
-        init();
-    }
-    shop_type.onchange = function (event) {
-        init();
-
-    }
-    //获得数据
-
-    //填充数据
-    function fillData() {
-        let isarea = true;
-        let value1 = getSelectValue(true),
-            value2 = getSelectValue(false);
-        console.log(value1);
-        console.log(value2);
-        let data = sourceData.filter((data, index, arr) => {
-            let areaData = value1.filter((item) => {
-                return data.region == item
-            })
-            let productData = value2.filter((item) => {
-                return data.product == item
-            })
-            if (areaData.length > 0 && productData.length > 0) {
-                console.log(areaData);
-                console.log(productData);
-
-                return productData
-            }
-
-        })
-        console.log(data);
-
-        return data;
-
-    }
-
-    //获得选择的值
-    function getSelectValue(isarea) {
-        //如果是地区
-        let data = new Array();
-        if (isarea) {
-            for (let i = 0; i < area_option.length; i++) {
-                console.log(area_option[i].checked);
-                if (area_option[i].checked) {
-                    data.push(area_option[i].value)
-                    console.log(data);
-
-                }
-            }
-        } else {
-            for (let i = 0; i < product_option.length; i++) {
-                console.log(product_option[i].checked);
-                if (product_option[i].checked) {
-                    data.push(product_option[i].value)
-                    console.log(data);
-
-                }
-            }
-        }
-        return data;
-    }
-
-    //表格初始化，渲染表头
-    function init() {
-        tab_box.removeChild(tab_box.childNodes[0]);
-        let table = document.createElement('table');
-        let header = table.createTHead();
-        // let row = header.insertRow(0);
-        for (let i in table_title_list) {
-            let th = document.createElement('th');
-            // let th = row.insertR(row.cells.length);
-            th.innerHTML = table_title_list[i];
-            // row.append(th);
-            header.append(th)
-        }
-
-        let arr = fillData();
-        let tbody = table.createTBody();
-        let newRow = tbody.insertRow(0);
-
-        for (let i = 0; i < arr.length; i++) {
-            let tr = table.insertRow(table.rows.length);
-            let td0 = tr.insertCell(0);
-            td0.innerHTML = arr[i].product;
-            let td1 = tr.insertCell(1);
-            td1.innerHTML = arr[i].region;
-            for (let j = 0; j < 12; j++) {
-                let tdn = tr.insertCell(j + 2);
-                tdn.innerHTML = arr[i].sale[j];
-            }
-
-        }
-        tab_box.appendChild(table);
-
-        let trs =[... document.getElementsByTagName("tr")];
-        console.log(trs.length);
-        console.log(trs);
-        let trData = [{product : "",region:"",sale:[]}];
-        for (let i = 1; i < trs.length; i++) {
-            console.log(trs.length);
-            trs[i].onmouseover = function () {
-                let tds =this.getElementsByTagName("td");
-                trData[0].product=tds[0].innerHTML;
-                trData[0].region=tds[1].innerHTML;
-                for(let j=2;j<tds.length;j++){
-                    trData[0].sale[j-2] = tds[j].innerHTML; 
-                }
-                console.log(trData);
-                
-                broken.innerHTML = getBroken(trData);
-                bar.innerHTML = getBar(trData);
-
-
-            }
-        }
-
-    }
-
-
-    //折线图显示
-
-    let data_broken = function ccc() {
-        let new_array = [];
-        sourceData.forEach((cur, index, arr) => {
-            if (cur.region == '华东' && cur.product == "手机") {
-                new_array.push(cur);
-            }
-
-        })
-        return new_array;
-    }
-
-
-
-
-    broken.innerHTML = getBroken(data_broken());
-    bar.innerHTML = getBar(data_broken());
-
-
-
-
-
- 
-</script>
-
+<script src="./js/index.js"></script>
+<script src="./js/check.js"></script>
 </html>

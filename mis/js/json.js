@@ -1,7 +1,15 @@
+/*
+ * @Author: your name
+ * @Date: 2020-06-09 14:57:54
+ * @LastEditTime: 2020-06-12 23:16:39
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\mis\js\json.js
+ */ 
   let sourceData = [{
         product: "手机",
         region: "华东",
-        sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+        sale: [100, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
     }, {
         product: "手机",
         region: "华北",
@@ -62,7 +70,12 @@
         product: "智能音箱",
         region: "华东",
         sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
-    }, {
+    },{
+        product: "手机",
+        region: "华东",
+        sale: [200, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    },
+    {
         product: "智能音箱",
         region: "华北",
         sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]

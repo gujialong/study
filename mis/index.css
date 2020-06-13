@@ -23,6 +23,32 @@ table td {
     text-align: center;
 }
 
+.edit {
+    background-image: url(./image/edit.png);
+    background-position: 90% 50%;
+    background-repeat: no-repeat;
+}
+
+.save {
+    width: 18px;
+    height: 18px;
+    margin-left: 0.5em;
+    border: none;
+    background-image: url(./image/save.png);
+    background-position: 90% 50%;
+    background-repeat: no-repeat;
+}
+
+.cancel {
+    width: 18px;
+    height: 18px;
+    border: none;
+    margin-left: 0.5em;
+    background-image: url(./image/cancel.png);
+    background-position: 90% 50%;
+    background-repeat: no-repeat;
+}
+
 table tr:nth-child(odd) {
     background-color: #F5F5F5;
 }
@@ -34,6 +60,7 @@ table tr:nth-child(even) {
 .broken {
     margin-top: 5em;
 }
-#bar-wrapper{
+
+#bar-wrapper {
     margin-top: 5em;
 }

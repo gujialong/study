@@ -1,0 +1,35 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-13 11:27:25
+ * @LastEditTime: 2020-06-13 11:41:14
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vsworkspace\111.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" id ="a">
+    </div>
+</body>
+<script>
+    let c= document.getElementById("a");
+    c.onkeypress =function(){
+        console.log(event);
+        if(event.which == 27 ){
+            console.log(111);
+            
+        }
+    }
+    document.addEventListener("keydown",function(e){
+        console.log(e);
+        
+    })
+</script>
+</html>
